@@ -1,0 +1,92 @@
+<?page title="ZK Tests" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="ZK Tests" border="normal" width="400px" 
+	mode="overlapped" position="center" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('zkTestGAE.testVM')">
+<vlayout>
+<hbox> Textbox OnChanging Number Only: <textbox value="@bind(vm.txt1)" onChanging="@command('numberOnly',arg=self.getValue())" /></hbox>
+<hbox> Textbox OnOK Number Only: <textbox value="@bind(vm.txt2)" onOK="@command('onlyNumber',arg=self.getValue())" /></hbox>
+
+<hbox><combobox model="@load(vm.sendTypes)" xmlns:w="client" w:onFocus="this.open()">
+<template name="model" var="t">
+<comboitem label="${t}"/>
+</template>
+</combobox></hbox>
+
+<grid>
+<rows>
+<row>
+<cell><intbox value="@bind(vm.v1)"/></cell>
+<cell><intbox value="@bind(vm.v2)"/></cell>
+<cell><intbox value="@bind(vm.hv1)" disabled="true"/></cell>
+</row>
+<row>
+<cell><intbox value="@bind(vm.v3)"/></cell>
+<cell><intbox value="@bind(vm.v4)"/></cell>
+<cell><intbox value="@bind(vm.hv2)" disabled="true"/><BinderUtil./cell>
+</row>
+<row>
+<cell><intbox value="@bind(vm.vv1)" disabled="true"/></cell>
+<cell><intbox value="@bind(vm.vv2)" disabled="true"/></cell>
+<cell><intbox value="@bind(vm.tv)" disabled="true"/></cell>
+</row>
+<row>
+<div xmlns:w="http://www.zkoss.org/2005/zk/client">
+<datebox><attribute  w:name="onChanging">
+Pattern pattern = Pattern.compile("[^0-9]");
+Matcher matcher = pattern.matcher(value);
+
+</attribute></datebox></div>
+</row>
+<row>
+<button label="Save " width="100px">
+            <attribute name="onClick"><![CDATA[
+Messagebox.show("Are you sure to save?", "Confirm Dialog", Messagebox.OK | Messagebox.IGNORE  | Messagebox.CANCEL, Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener() {
+    public void onEvent(Event evt) throws InterruptedException {
+        if (evt.getName().equals("onOK")) {
+           k
+        } else if (evt.getName().equals("onIgnore")) {
+            Messagebox.show("Ignore Save", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+        } else {
+            alert("Save Canceled !");
+        }
+    }
+});
+]]></attribute>
+</row>
+</rows>
+</grid><zscript><![CDATA[
+                         void checkValue(){
+                        	 System.out.println("client side test");
+                         }
+ ]]></zscript>
+</vlayout>
+<!-- test code for global command testing
+	<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('gov.mvdis.m3.drv.rpt.ui.vm.testVM')">	<zscript><![CDATA[
+		import org.zkoss.zk.ui.event.*;
+		import java.util.regex.Pattern;
+		import java.util.regex.Matcher;
+	
+window title="Hello World!!" border="normal" width="200px
+		<listbox model="@load(vm.showList)">
+			<listhead>
+				<listheader label="ZipCode" />
+				<listheader label="Address" />
+			</listhead>
+			<template name="model" var="item">
+				<listitem>
+					<listcell>
+						<label value="@load(item.commZip)" />
+					</listcell>
+					<listcell>
+						<label value="@load(item.commAddr)" />
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+ -->
+ 	
+</window>
+</zk>

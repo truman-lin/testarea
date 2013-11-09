@@ -1,0 +1,19 @@
+<?page title="Auto Generated index.zul"?>
+<window title="My First window at GAE" border="normal" width="200px" 
+	mode="overlapped" position="center" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('zkTestGAE.testVM')">
+	Hello, World!
+	<separator bar="true" />
+	<zscript>
+	int cnt = 0;
+</zscript>
+	<button label="Hi" onClick='alert("Hi, GAE")' />
+	<button label="Click me"
+		onClick='new Label("Click " + ++cnt + " ").setParent(self.parent)' />
+	<button label="pause 10s"
+		onClick='org.zkoss.lang.Threads.sleep(10000);new Label("I am back. ").setParent(self.parent)' />
+	<separator bar="true" />
+
+<!-- 	<doublespinner value="@load(vm.dsvalue)" step="0.1" onChanging="@command('tenTimes',ds=self,v=event.value)" /> -->
+
+</window>
